@@ -12,7 +12,7 @@ Bug反馈/建议等请提交[issues](https://github.com/YinHangCode/node-red-con
 第一个Node-RED插件，感谢一下萝卜大佬，哈哈。
 
 ## 安装
-确认安装好NodeRED之后，执行如下命令：
+确认安装好Node-RED之后，执行如下命令：
 ```
 npm install -g node-red-contrib-weather
 ```
