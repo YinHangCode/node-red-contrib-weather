@@ -6,7 +6,7 @@
    
 天气数据取自小米。
    
-Bug反馈/建议等请提交[issues](https://github.com/YinHangCode/homebridge-mi-aqara/issues) 或 [QQ群: 107927710](//shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d)。
+Bug反馈/建议等请提交[issues](https://github.com/YinHangCode/node-red-contrib-weather/issues) 或 [QQ群: 107927710](//shang.qq.com/wpa/qunwpa?idkey=8b9566598f40dd68412065ada24184ef72c6bddaa11525ca26c4e1536a8f2a3d)。
 
 ## 感谢
 第一个Node-RED插件，感谢一下萝卜大佬，哈哈。
