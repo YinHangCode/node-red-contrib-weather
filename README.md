@@ -9,7 +9,7 @@
 ## 安装
 确认安装好NodeRED之后，执行如下命令：
 ```
-npm install -g homebridge-mi-aqara
+npm install -g node-red-contrib-weather
 ```
 
 ## 说明
