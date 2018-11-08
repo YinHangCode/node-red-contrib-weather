@@ -17,7 +17,7 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
 			node.httpGet({longitude: longitude, latitude: latitude}).then(result => {
-				msg.payload = result;
+				msg.payload = JSON.parse(result);
 				node.send(msg);
 			}).catch(function(err) {
 				that.error(err);
