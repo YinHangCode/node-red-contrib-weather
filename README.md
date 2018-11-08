@@ -2,9 +2,12 @@
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-weather.svg)](https://badge.fury.io/js/node-red-contrib-weather)
 
-这是一个NodeRED的天气插件。
+这是一个Node-RED的天气插件。
    
 天气数据取自小米。
+
+## 感谢
+第一个Node-RED插件，感谢一下萝卜大佬，哈哈。
 
 ## 安装
 确认安装好NodeRED之后，执行如下命令：
