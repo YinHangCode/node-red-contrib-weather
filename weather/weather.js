@@ -1,17 +1,10 @@
 const http = require("http");
-const packageFile = require("../package.json");
 
 module.exports = function(RED) {
     function WeatherNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
-		
-		this.log("*****************************************************************");
-		this.log("    node-red-contrib-weather v"+packageFile.version+" By hang.yin");
-		this.log(" GitHub: https://github.com/YinHangCode/node-red-contrib-weather ");
-		this.log("                                            QQ Group: 107927710  ");
-		this.log("*****************************************************************");
-	
+			
         var longitude = config.longitude;
         var latitude = config.latitude;
 
