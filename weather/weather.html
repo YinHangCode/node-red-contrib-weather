@@ -1,15 +1,16 @@
 <script type="text/javascript">
     RED.nodes.registerType('weather',{
         category: 'weather',
-        color: '#a6bbcf',
+        color: '#5eba8c',
         defaults: {
             name: { value: "" },
             longitude: { value: 0, validate:RED.validators.number() },
             latitude: { value: 0, validate:RED.validators.number() }
         },
         inputs: 1,
-        outputs: 1,
-        icon: "white-globe.png",
+        outputs: 7,
+        outputLabels: ["temperature","humidity","weater_code","AQI","sunrise","sunset","weather"],
+        icon: "weather.png",
         label: function() {
             return this.name || "weather";
         }
