@@ -1,8 +1,11 @@
 {
   "name": "node-red-contrib-weather",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Node-RED contrib for weather.",
   "author": "hang.yin",
+  "dependencies": {
+    "validator":"^12.1.0"
+  },
   "keywords": [
     "Node-RED",
     "node-red-contrib",
