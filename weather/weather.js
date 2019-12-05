@@ -9,7 +9,16 @@ module.exports = function (RED) {
 		var longitude = config.longitude;
 		var latitude = config.latitude;
 
+		let weather = new Object();
+		let temperature = new Object();
+		let humidity = new Object();
+		let weather_code = new Object();
+		let aqi = new Object();
+		let sunrise = new Object();
+		let sunset = new Object();
+
 		node.on('input', function (msg) {
+			// Verify input is json
 			if (validator.isJSON(String(msg.payload))) {
 				let parameter;
 				parameter = JSON.parse(msg.payload);
@@ -19,15 +28,16 @@ module.exports = function (RED) {
 					longitude = String(parameter.longitude);
 
 					node.httpGet({ longitude: longitude, latitude: latitude }).then(result => {
-						let weather = JSON.parse(result);
-						let temperature = weather.current.feelsLike.value + weather.current.feelsLike.unit;
-						let humidity = weather.current.humidity.value + weather.current.humidity.unit;
-						let weather_code = weather.current.weather;
-						let aqi = weather.forecastDaily.aqi.value[0];
-						let sunrise = weather.forecastDaily.sunRiseSet.value[0].from;
-						let sunset = weather.forecastDaily.sunRiseSet.value[0].to;
+						weather.payload = JSON.parse(result);
 
-						node.send([temperature, humidity, weather_code, aqi, sunrise, sunset, weather]);
+						temperature.payload = weather.payload.current.feelsLike.value + weather.payload.current.feelsLike.unit;
+						humidity.payload = weather.payload.current.humidity.value + weather.payload.current.humidity.unit;
+						weather_code.payload = weather.payload.current.weather;
+						aqi.payload = weather.payload.forecastDaily.aqi.value[0];
+						sunrise.payload = weather.payload.forecastDaily.sunRiseSet.value[0].from;
+						sunset.payload = weather.payload.forecastDaily.sunRiseSet.value[0].to;
+
+						node.send([weather, temperature, humidity, weather_code, aqi, sunrise, sunset]);
 					}).catch(function (err) {
 						RED.log.error(err);
 					});
@@ -40,17 +50,17 @@ module.exports = function (RED) {
 			else {
 				node.httpGet({ longitude: longitude, latitude: latitude }).then(result => {
 
-					let weather = JSON.parse(result);
-					let temperature = weather.current.feelsLike.value;
-					let humidity = weather.current.humidity.value;
-					let weather_code = weather.current.weather;
-					let aqi = weather.forecastDaily.aqi.value[0];
-					let sunrise = weather.forecastDaily.sunRiseSet.value[0].from;
-					let sunset = weather.forecastDaily.sunRiseSet.value[0].to;
+					weather.payload = JSON.parse(result);
+					temperature.payload = weather.payload.current.feelsLike.value + weather.payload.current.feelsLike.unit;
+					humidity.payload = weather.payload.current.humidity.value + weather.payload.current.humidity.unit;
+					weather_code.payload = weather.payload.current.weather;
+					aqi.payload = weather.payload.forecastDaily.aqi.value[0];
+					sunrise.payload = weather.payload.forecastDaily.sunRiseSet.value[0].from;
+					sunset.payload = weather.payload.forecastDaily.sunRiseSet.value[0].to
 
-					node.send([temperature, humidity, weather_code, aqi, sunrise, sunset, weather]);
+					node.send([weather, temperature, humidity, weather_code, aqi, sunrise, sunset]);
 				}).catch(function (err) {
-					that.error(err);
+					RED.log.error(err);
 				});
 			}
 
