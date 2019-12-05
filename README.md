@@ -31,7 +31,7 @@ npm install -g node-red-contrib-weather
 
    
 ## 版本说明
-### 0.1.1 (2019-12-5)
+### 0.1.1 & 0.1.2 (2019-12-5)
 1. 输出的信息由msg转为msg.payload
 2. 天气代码 -> 天气状况 
 
