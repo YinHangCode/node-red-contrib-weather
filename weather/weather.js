@@ -1,5 +1,6 @@
 const http = require("http");
-var validator = require('validator');
+var validate = require('jsonschema').validate;
+
 
 module.exports = function (RED) {
 	function WeatherNode(config) {
@@ -19,14 +20,13 @@ module.exports = function (RED) {
 
 		node.on('input', function (msg) {
 			// Verify input is json
-			if (validator.isJSON(String(msg.payload))) {
+			var res = validate(undefined, msg.payload);
+			if (res.valid) {
 				let parameter;
-				parameter = JSON.parse(msg.payload);
+				parameter = msg.payload;
 				if (parameter) {
-
 					latitude = String(parameter.latitude);
 					longitude = String(parameter.longitude);
-
 					node.httpGet({ longitude: longitude, latitude: latitude }).then(result => {
 						weather.payload = JSON.parse(result);
 
@@ -66,132 +66,131 @@ module.exports = function (RED) {
 
 		});
 	}
-	function weatherStatus(code)
-	{
+	function weatherStatus(code) {
 		let status = "";
 		// weather code to weather status
-		switch(code) {
-		case '0':
-			status = '晴'
-			break;
-		case '1':
-			status = '多云'
-			break;
-		case '2':
-			status = '阴'
-			break;
-		case '3':
-			status = '阵雨'
-			break;
-		case '4':
-			status = '雷阵雨'
-			break;
-		case '5':
-			status = '雷阵雨并伴有冰雹'
-			break;
-		case '6':
-			status = '雨夹雪'
-			break;
-		case '7':
-			status = '小雨'
-			break;
-		case '8':
-			status = '中雨'
-			break;
-		case '9':
-			status = '大雨'
-			break;
-		case '10':
-			status = '暴雨'
-			break;
-		case '11':
-			status = '大暴雨'
-			break;
-		case '12':
-			status = '特大暴雨'
-			break;
-		case '13':
-			status = '阵雪'
-			break;
-		case '14':
-			status = '小雪'
-			break;
-		case '15':
-			status = '中雪'
-			break;
-		case '16':
-			status = '大雪'
-			break;
-		case '17':
-			status = '暴雪'
-			break;
-		case '18':
-			status = '雾'
-			break;
-		case '19':
-			status = '冻雨'
-			break;
-		case '20':
-			status = '沙尘暴'
-			break;
-		case '21':
-			status = '小雨转中雨'
-			break;
-		case '22':
-			status = '中雨转大雨'
-			break;
-		case '23':
-			status = '大雨转暴雨'
-			break;
-		case '24':
-			status = '暴雨转大暴雨'
-			break;
-		case '25':
-			status = '大暴雨转特大暴雨'
-			break;
-		case '26':
-			status = '小雪转中雪'
-			break;
-		case '27':
-			status = '中雪转大雪'
-			break;
-		case '28':
-			status = '大雪转暴雪'
-			break;
-		case '29':
-			status = '浮沉'
-			break;
-		case '30':
-			status = '扬沙'
-			break;
-		case '31':
-			status = '强沙尘暴'
-			break;
-		case '32':
-			status = '飑'
-			break;
-		case '33':
-			status = '龙卷风'
-			break;
-		case '34':
-			status = '若高吹雪'
-			break;
-		case '35':
-			status = '轻雾'
-			break;
-		case '53':
-			status = '霾'
-			break;
-		case '99':
-			status = '未知'
-			break;
-		default:
-			status = '无数据'
-			break;
+		switch (code) {
+			case '0':
+				status = '晴'
+				break;
+			case '1':
+				status = '多云'
+				break;
+			case '2':
+				status = '阴'
+				break;
+			case '3':
+				status = '阵雨'
+				break;
+			case '4':
+				status = '雷阵雨'
+				break;
+			case '5':
+				status = '雷阵雨并伴有冰雹'
+				break;
+			case '6':
+				status = '雨夹雪'
+				break;
+			case '7':
+				status = '小雨'
+				break;
+			case '8':
+				status = '中雨'
+				break;
+			case '9':
+				status = '大雨'
+				break;
+			case '10':
+				status = '暴雨'
+				break;
+			case '11':
+				status = '大暴雨'
+				break;
+			case '12':
+				status = '特大暴雨'
+				break;
+			case '13':
+				status = '阵雪'
+				break;
+			case '14':
+				status = '小雪'
+				break;
+			case '15':
+				status = '中雪'
+				break;
+			case '16':
+				status = '大雪'
+				break;
+			case '17':
+				status = '暴雪'
+				break;
+			case '18':
+				status = '雾'
+				break;
+			case '19':
+				status = '冻雨'
+				break;
+			case '20':
+				status = '沙尘暴'
+				break;
+			case '21':
+				status = '小雨转中雨'
+				break;
+			case '22':
+				status = '中雨转大雨'
+				break;
+			case '23':
+				status = '大雨转暴雨'
+				break;
+			case '24':
+				status = '暴雨转大暴雨'
+				break;
+			case '25':
+				status = '大暴雨转特大暴雨'
+				break;
+			case '26':
+				status = '小雪转中雪'
+				break;
+			case '27':
+				status = '中雪转大雪'
+				break;
+			case '28':
+				status = '大雪转暴雪'
+				break;
+			case '29':
+				status = '浮沉'
+				break;
+			case '30':
+				status = '扬沙'
+				break;
+			case '31':
+				status = '强沙尘暴'
+				break;
+			case '32':
+				status = '飑'
+				break;
+			case '33':
+				status = '龙卷风'
+				break;
+			case '34':
+				status = '若高吹雪'
+				break;
+			case '35':
+				status = '轻雾'
+				break;
+			case '53':
+				status = '霾'
+				break;
+			case '99':
+				status = '未知'
+				break;
+			default:
+				status = '无数据'
+				break;
 		}
-		
+
 		return status;
-		
+
 	}
 	WeatherNode.prototype.httpGet = function (params) {
 		let that = this;
